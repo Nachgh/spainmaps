@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galería 360 España</title>
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; overflow: hidden; }
+    .btn { position: absolute; z-index: 1000; padding: 10px; font-size: 14px; background-color: #61dafb; border: none; border-radius: 5px; cursor: pointer; }
+    .btn:hover { background-color: #21a1f1; }
+    #map, #scene, #resultMap { width: 100vw; height: 100vh; display: none; }
+    #startScreen { display: flex; justify-content: center; align-items: center; width: 100vw; height: 100vh; background-color: #282c34; color: white; }
+    #startScreen button { padding: 15px 30px; font-size: 20px; background-color: #61dafb; border: none; border-radius: 5px; cursor: pointer; }
+    #startScreen button:hover { background-color: #21a1f1; }
+    .bottom-btn { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); }
+  </style>
+</head>
+<body>
+  <!-- Música de fondo -->
+  <audio id="backgroundMusic" loop>
+    <source src="musica_relajante.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Pantalla de inicio -->
+  <div id="startScreen">
+    <button onclick="startExperience()">Comenzar</button>
+  </div>
+
+  <!-- Escena de A-Frame -->
+  <a-scene id="scene">
+    <a-sky id="sky" radius="10"></a-sky>
+    <button class="btn" style="top: 10px; left: 10px;" onclick="goToMap()">Ir al mapa</button>
+  </a-scene>
+
+  <!-- Mapa interactivo -->
+  <div id="map">
+    <button class="btn" style="top: 10px; left: 10px;" onclick="goToScene()">Regresar</button>
+    <button class="btn bottom-btn" id="confirmButton" onclick="confirmClick()">Confirmar</button>
+  </div>
+
+  <!-- Comparación de puntos -->
+  <div id="resultMap">
+    <button class="btn bottom-btn" id="nextButton" onclick="startExperience()">Siguiente</button>
+  </div>
+
+  <script>
+    let galleryData = []; 
+    let selectedImage = null; 
+    let map, userMarker, resultMap; 
+    let userCoords = null; 
+
+    // Cargar datos de la galería
+    async function loadGalleryData() {
+      const response = await fetch('data.json');
+      galleryData = await response.json();
+    }
+
+    // Seleccionar imagen aleatoria
+    function getRandomImage() {
+      const randomIndex = Math.floor(Math.random() * galleryData.length);
+      return galleryData[randomIndex];
+    }
+
+    // Iniciar experiencia
+    async function startExperience() {
+      document.getElementById('startScreen').style.display = 'none';
+      document.getElementById('scene').style.display = 'block';
+      document.getElementById('map').style.display = 'none';
+      document.getElementById('resultMap').style.display = 'none';
+
+      if (galleryData.length === 0) await loadGalleryData();
+      selectedImage = getRandomImage();
+
+      const sky = document.getElementById('sky');
+      sky.setAttribute('src', selectedImage.src);
+
+      // Reproducir música de fondo
+      const music = document.getElementById('backgroundMusic');
+      music.volume = 0.5;
+      music.play();
+    }
+
+    // Ir al mapa interactivo
+    function goToMap() {
+      document.getElementById('scene').style.display = 'none';
+      document.getElementById('map').style.display = 'block';
+
+      if (!map) initializeMap();
+    }
+
+    // Regresar a la escena
+    function goToScene() {
+      document.getElementById('scene').style.display = 'block';
+      document.getElementById('map').style.display = 'none';
+    }
+
+    // Inicializar el mapa interactivo
+    function initializeMap() {
+      map = L.map('map').setView([40.4168, -3.7038], 6); 
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18
+      }).addTo(map);
+
+      map.on('click', function (e) {
+        userCoords = e.latlng;
+        if (userMarker) map.removeLayer(userMarker);
+        userMarker = L.marker(userCoords).addTo(map);
+      });
+    }
+
+    // Confirmar selección
+    function confirmClick() {
+      if (!userCoords) {
+        alert('Por favor, selecciona un punto en el mapa.');
+        return;
+      }
+
+      // Mostrar pantalla de resultados
+      document.getElementById('map').style.display = 'none';
+      document.getElementById('resultMap').style.display = 'block';
+
+      // Cargar el mapa de resultados
+      if (!resultMap) {
+        resultMap = L.map('resultMap').setView([40.4168, -3.7038], 6);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 18
+        }).addTo(resultMap);
+      } else {
+        resultMap.eachLayer(layer => {
+          if (layer instanceof L.Marker) resultMap.removeLayer(layer);
+        });
+      }
+
+      const realCoords = selectedImage.coordinates;
+      const realName = selectedImage.id; 
+
+      // Añadir marcadores de usuario y posición real
+      L.marker(userCoords).addTo(resultMap).bindPopup('Tu selección').openPopup();
+      const distance = L.latLng(userCoords.lat, userCoords.lng).distanceTo(L.latLng(realCoords.lat, realCoords.lng));
+      const distance2 = distance/1000 
+      L.marker([realCoords.lat, realCoords.lng]).addTo(resultMap).bindPopup(`Posición real: ${realName}<br>Distancia: ${Math.round(distance2)} km`).openPopup();
+    }
+  </script>
+</body>
+</html>

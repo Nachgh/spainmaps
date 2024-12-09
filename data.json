@@ -1,0 +1,67 @@
+[
+  {
+    "id": "Sagrada Familia",
+    "src": "Lugares/Sagrada_Familia.jpg",
+    "coordinates": { "lat": 41.4036, "lng": 2.1744 }
+  },
+  {
+    "id": "Catedral de la Almudena",
+    "src": "Lugares/Almudena_PR.jpg",
+    "coordinates": { "lat": 40.4157, "lng": -3.7142 }
+  },
+  {
+    "id": "Acueducto de Segovia",
+    "src": "Lugares/Acueducto de segovia.jpg",
+    "coordinates": { "lat": 40.9493, "lng": -4.1185 }
+  },
+  {
+    "id": "Alcázar de Segovia",
+    "src": "Lugares/Alcazar de segovia.jpg",
+    "coordinates": { "lat": 40.9522, "lng": -4.1316 }
+  },
+  {
+    "id": "Catedral de Córdoba",
+    "src": "Lugares/Catedral de cordoba.jpg",
+    "coordinates": { "lat": 37.8791, "lng": -4.7794 }
+  },
+  {
+    "id": "Catedral de Santiago",
+    "src": "Lugares/Catedral de santiago.jpg",
+    "coordinates": { "lat": 42.8806, "lng": -8.5448 }
+  },
+  {
+    "id": "Cibeles",
+    "src": "Lugares/Cibeles.jpg",
+    "coordinates": { "lat": 40.4195, "lng": -3.6935 }
+  },
+  {
+    "id": "Cuevas de Altamira",
+    "src": "Lugares/Cuevas de altamira.jpg",
+    "coordinates": { "lat": 43.3849, "lng": -4.1164 }
+  },
+  {
+    "id": "La Giralda",
+    "src": "Lugares/La giralda.jpg",
+    "coordinates": { "lat": 37.3861, "lng": -5.9921 }
+  },
+  {
+    "id": "Monasterio de Montserrat",
+    "src": "Lugares/Monasterio de monserrat.jpg",
+    "coordinates": { "lat": 41.5912, "lng": 1.8371 }
+  },
+  {
+    "id": "Puerta del Sol",
+    "src": "Lugares/Puerta del sol.jpg",
+    "coordinates": { "lat": 40.4169, "lng": -3.7038 }
+  },
+  {
+    "id": "Torre de Hércules",
+    "src": "Lugares/Torre de hercules.jpg",
+    "coordinates": { "lat": 43.3853, "lng": -8.4066 }
+  },
+  {
+    "id": "Valle de los Caídos",
+    "src": "Lugares/Valle de los caidos.jpg",
+    "coordinates": { "lat": 40.6428, "lng": -4.1511 }
+  }
+]
