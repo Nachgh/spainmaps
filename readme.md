@@ -16,6 +16,7 @@ Este proyecto crea una experiencia interactiva de realidad virtual (VR) usando A
 - [A-Frame](https://aframe.io/releases/1.4.2/aframe.min.js): Biblioteca para crear experiencias de realidad virtual en la web.
 - [Leaflet](https://unpkg.com/leaflet@1.9.4/dist/leaflet.js): Biblioteca para mapas interactivos.
 - [Leaflet CSS](https://unpkg.com/leaflet@1.9.4/dist/leaflet.css): Hoja de estilos para Leaflet.
+- [XAMPP](https://www.apachefriends.org/es/index.html): - Crea un servidor HTTP para realizar las pruebas en local. 
 
 ## Estructura del Código
 
@@ -81,3 +82,6 @@ El archivo `data.json` contiene información sobre las imágenes 360° y sus ubi
 - **coordinates**: Las coordenadas geográficas de la ubicación de la imagen:
   - **lat**: Latitud
   - **lng**: Longitud
+# Bibliografia
+- [Un Ejemplo de A-Frame repositorio](https://github.com/tcrurav/A-Frame-Example): Este repositorio que viene acompañado con un video de Youtube explica algunas caracteristicas de A-Frame que hemos implementado a nuestro codigo,
+- [Video ejemplo A-Frame](https://youtu.be/GHzStTeFztM): El video en cuestion.
