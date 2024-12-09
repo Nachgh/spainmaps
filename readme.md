@@ -1,4 +1,4 @@
-# Mateo Martinez, Pablo Ruiz de Apodaca e Ignacio Valderrama
+# Mateo Martinez, Pablo Ruiz de Apodaca e Ignacio Fernández de Valderrama
 
 ## Descripción del Proyecto
 
